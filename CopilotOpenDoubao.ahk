@@ -1,4 +1,4 @@
-﻿;server 1.0.0
+﻿;server 1.0.1
 
 #Requires AutoHotkey v2.0
 #SingleInstance Force
@@ -23,18 +23,16 @@ UrlKeyword := "doubao.com/chat"
         return
     }
 
-    ; 无chat页但有Chrome窗口：用Chrome命令行直接在现有窗口打开chat页（无需新建标签页+输入URL）
+    ; 无chat页但有Chrome窗口：用Chrome命令行直接在现有窗口打开chat页
     if (existingChrome := GetAnyChromeWindow()) {
-        ; 关键：通过--new-tab参数在现有Chrome窗口打开chat页（Chrome自动识别现有窗口）
         Run('"' ChromePath '" --new-tab ' TargetURL)
         Sleep(1000) ; 等待页面加载
         return
     }
 
-    ; 无任何Chrome窗口：新建窗口打开chat页（仅此时居中）
+    ; 无任何Chrome窗口：新建窗口打开chat页（已去掉居中功能）
     Run(ChromePath ' --new-window ' TargetURL)
     if (newWin := WinWait("ahk_exe chrome.exe",, 5)) {
-        CenterWindow(newWin)
         WinActivate("ahk_id " newWin)
     } else {
         MsgBox("Chrome启动失败", "提示", 0x40)
@@ -96,13 +94,3 @@ GetAnyChromeWindow() {
     }
     return 0
 }
-
-; 窗口居中（仅新窗口调用）
-CenterWindow(winId) {
-    screenW := A_ScreenWidth, screenH := A_ScreenHeight
-    WinGetPos(&x, &y, &w, &h, "ahk_id " winId)
-    newX := (screenW - w) // 2, newY := (screenH - h) // 2
-    WinMove(newX, newY, , , "ahk_id " winId)
-}
-
-
