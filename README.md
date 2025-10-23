@@ -1,0 +1,2 @@
+# ModifyCopilot
+由于总所周知的原因copilot键基本弃用，此方案使用autohotkey和网页版豆包实现一键呼出ai
