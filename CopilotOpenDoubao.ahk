@@ -1,6 +1,4 @@
 ﻿;server 1.0.0
-;question 多窗口情况下查找页面逻辑漏洞导致无法直接调取已经打开的chat页
-
 
 #Requires AutoHotkey v2.0
 #SingleInstance Force
@@ -106,4 +104,5 @@ CenterWindow(winId) {
     newX := (screenW - w) // 2, newY := (screenH - h) // 2
     WinMove(newX, newY, , , "ahk_id " winId)
 }
+
 
